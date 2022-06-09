@@ -27,7 +27,7 @@ function extractResult() {
         const [,playerName1 = null, playerGameId1 = null] = cells[1].innerHTML.match(PLAYER_REGEXP) || []
         const [,playerName2 = null, playerGameId2 = null] = cells[2].innerHTML.match(PLAYER_REGEXP) || []
         result.push({
-            table_number: parseInt(cells[0].innerHTML),
+            tableNumber: parseInt(cells[0].innerHTML),
             playerName1,
             playerGameId1,
             playerName2,
