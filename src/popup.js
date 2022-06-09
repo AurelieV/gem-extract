@@ -24,14 +24,14 @@ function extractResult() {
     const result = [];
     document.querySelectorAll(".match-row").forEach((row) => {
         const cells = row.querySelectorAll(".match-element");
-        const [,player1_name = null, player1_gemid = null] = cells[1].innerHTML.match(PLAYER_REGEXP) || []
-        const [,player2_name = null, player2_gemid = null] = cells[2].innerHTML.match(PLAYER_REGEXP) || []
+        const [,playerName1 = null, playerGameId1 = null] = cells[1].innerHTML.match(PLAYER_REGEXP) || []
+        const [,playerName2 = null, playerGameId2 = null] = cells[2].innerHTML.match(PLAYER_REGEXP) || []
         result.push({
             table_number: parseInt(cells[0].innerHTML),
-            player1_name,
-            player1_gemid,
-            player2_name,
-            player2_gemid,
+            playerName1,
+            playerGameId1,
+            playerName2,
+            playerGameId2,
             result: cells[3].querySelector("select").value || null
         });
     });
