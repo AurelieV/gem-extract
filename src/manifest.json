@@ -6,5 +6,15 @@
     "action": {
         "default_popup": "popup.html"
     },
-    "permissions": ["activeTab", "scripting"]
-  }
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["activeTab", "scripting", "webNavigation"],
+    "host_permissions": ["*://*.gem.fabtcg.com/*"],
+    "content_scripts": [
+        {
+            "matches": ["*://*.gem.fabtcg.com/*"],
+            "js": ["content.js"]
+        }
+    ]
+}

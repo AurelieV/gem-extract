@@ -1,0 +1,10 @@
+{
+    "name": "Event Link Extractor",
+    "description": "Extract info from Event Link",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": ["activeTab", "scripting"]
+  }
