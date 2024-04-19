@@ -1,10 +1,10 @@
 {
     "name": "Mtg Melee Extractor",
     "description": "Extract info from MTG Melee",
-    "version": "1.0",
+    "version": "2.0",
     "manifest_version": 3,
     "action": {
         "default_popup": "popup.html"
     },
     "permissions": ["activeTab", "scripting"]
-  }
+}

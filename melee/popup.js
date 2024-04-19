@@ -40,18 +40,25 @@ extractResultBtn.addEventListener("click", async () => {
 
 function extractResult() {
     const result = [];
-    document.querySelectorAll("#tournament-player-pairings-table tr").forEach((row) => {
-        const tableColumn = row.querySelector('.TableNumber-column')?.innerText;
+    document.querySelectorAll("#tournament-player-pairings-table tbody tr").forEach((row) => {
+        const tableColumn = row.querySelector(".TableNumber-column")?.innerText;
         const tableNumber = tableColumn && parseInt(tableColumn);
         if (tableColumn && tableNumber && !isNaN(tableNumber)) {
-            const tableResult = row.querySelector('.Result-column')?.innerText;
+            const tableResult = row.querySelector(".AdminResultString-column")?.innerText;
+            const playerNames = row.querySelectorAll(".Teams-column .match-table-team-container a");
+
+            const playerName1 = playerNames[0]?.innerText?.trim();
+            const playerGameId1 = playerNames[0]?.getAttribute("data-id");
+            const playerName2 = playerNames[1]?.innerText?.trim();
+            const playerGameId2 = playerNames[1]?.getAttribute("data-id");
+
             result.push({
                 tableNumber,
-                playerName1: row.querySelector('.Player1-column a')?.innerText?.trim(),
-                playerGameId1: row.querySelector('.Player1-column a')?.getAttribute('data-id'),
-                playerName2: row.querySelector('.Player2-column a')?.innerText?.trim(),
-                playerGameId2: row.querySelector('.Player2-column a')?.getAttribute('data-id'),
-                result: tableResult === 'Not reported' ? null : tableResult,
+                playerName1,
+                playerGameId1,
+                playerName2,
+                playerGameId2,
+                result: tableResult === "Not reported" ? null : tableResult,
             });
         }
     });
