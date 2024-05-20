@@ -19,6 +19,25 @@ extractResultBtn.addEventListener("click", async () => {
     );
 });
 
+extractSeatingsBtn.addEventListener("click", async () => {
+    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    clearTimeout(timeout);
+    okMessage.style.display = "none";
+    chrome.scripting.executeScript(
+        {
+            target: { tabId: tab.id },
+            function: extractSeatings,
+        },
+        (results) => {
+            const { result } = results[0];
+            navigator.clipboard.writeText(JSON.stringify(result));
+            okMessage.style.display = "block";
+            clearTimeout(timeout);
+            timeout = setTimeout(() => (okMessage.style.display = "none"), 3000);
+        }
+    );
+});
+
 // extractPairingsBtn.addEventListener("click", async () => {
 //     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 //     clearTimeout(timeout);
@@ -63,6 +82,23 @@ function extractResult() {
         }
     });
     return result;
+}
+
+function extractSeatings() {
+    const result = {};
+    document.querySelectorAll("#tournament-seatings-table tbody tr").forEach((row) => {
+        const tableNumber = row.querySelector(".TableNumber-column input")?.value;
+        if (tableNumber) {
+            const name = row.querySelector(".Name-column")?.innerText;
+            result[tableNumber] = result[tableNumber] || [];
+            result[tableNumber].push(name);
+        }
+    });
+    return Object.entries(result).map(([tableNumber, players]) => ({
+        tableNumber: parseInt(tableNumber),
+        playerName1: players[0],
+        playerName2: players[1],
+    }));
 }
 
 // function extractPairings() {
